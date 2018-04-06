@@ -20,6 +20,10 @@ html, body {
   margin-right: 50px !important;
 }
 
+.marginRight100pc {
+  margin-right: 100% !important;
+}
+
 textarea {
   resize: none !important;
 }

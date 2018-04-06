@@ -12,9 +12,9 @@ let mainWindow
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
 		webPreferences: {
-			devTools: true
+			devTools: false
 		},
-		frame: true,
+		frame: false,
 		resizable: true
 	})
 	mainWindow.loadURL(`file://${__dirname}/client.html`)
