@@ -1,0 +1,33 @@
+*{
+  user-select: none;
+}
+
+html, body {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.page-content {
+  padding: 10 20
+}
+
+.csHeight {
+  height: 100%;
+}
+
+.marginRight50 {
+  margin-right: 50px !important;
+}
+
+textarea {
+  resize: none !important;
+}
+
+.csColor {
+  background-color: #00b8d0 !important;
+}
+
+.csButtonColor {
+  background-color: #54dde9 !important;
+}

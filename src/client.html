@@ -1,0 +1,55 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="client.css">
+  <link rel="stylesheet" href="material.min.css">
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header csColor" style="-webkit-app-region: drag">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">CS Kinesis Consumer</span>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content" id="configPanel">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50">
+          <input type="text" id="accessKeyId"  class="mdl-textfield__input">
+          <label for="accessKeyId" class="mdl-textfield__label">Access Key Id</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50">
+          <input type="text" id="secretAccessKey"  class="mdl-textfield__input">
+          <label for="secretAccessKey" class="mdl-textfield__label">Secret Access Key</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input type="text" id="region"  class="mdl-textfield__input">
+          <label for="region" class="mdl-textfield__label">Region</label>
+        </div>
+        <div>
+          <button id="save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent csButtonColor">Save</button>
+        </div>
+      </div>
+      <div id="resultsPanel" class="page-content">
+        <tr>
+          <td><button id="config" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent marginRight50 csButtonColor">Configure</button></td>
+          <td><button id="getRecords" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent marginRight50 csButtonColor">Get records</button></td>
+          <td><button id="exit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Exit</button></td>
+        </tr>
+        <div>
+          <h4>Results</h4>
+        </div>
+        <div class="mdl-js-textfield mdl-textfield--floating-label">
+          <textarea disabled id="records" name="name" class="mdl-textfield__input csHeight"></textarea>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./material.min.js"></script>
+  <script type="text/javascript">
+    require('./client')
+  </script>
+</body>
+
+</html>
