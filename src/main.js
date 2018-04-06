@@ -63,7 +63,7 @@ function getRecordsCallback(err, data) {
 	if (err) {
 		showErrorMSG('Not able to get records ', err.message)
 	} else {
-		let records = '<div>'
+		let records = ''
 		let partitionKey = ''
 		if(data.Records.length > 0) {
 			let isFirstTime = true
@@ -85,6 +85,7 @@ function getRecordsCallback(err, data) {
 				records += "<p>" + decoded + "</p><br>"
 			}
 		}
+		if(records === '') records += "<p> No records </p>"
 		mainWindow.webContents.send('recordsFetched', records)
 	}
 }
