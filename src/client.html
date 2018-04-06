@@ -3,6 +3,7 @@
 <head>
   <link rel="stylesheet" href="client.css">
   <link rel="stylesheet" href="material.min.css">
+  <link rel="stylesheet" href="getmdl-select.min.css">
 </head>
 
 <body>
@@ -49,15 +50,15 @@
           <button id="exit" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect">Exit</button>
         </div>
         <div class="mdl-textfield mdl-js-textfield getmdl-select marginRight100pc marginTop20">
-          <input type="text" value="" class="mdl-textfield__input" id="sample2" readonly>
-          <input type="hidden" value="" name="sample2">
-          <label for="sample2" class="mdl-textfield__label">Time</label>
-          <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+          <input type="text" value="" class="mdl-textfield__input" id="time" readonly>
+          <input type="hidden" value="" name="time">
+          <label for="time" class="mdl-textfield__label">Time</label>
+          <ul for="time" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
             <li class="mdl-menu__item" data-val="ONE">1 hour ago</li>
             <li class="mdl-menu__item" data-val="TWO">2 hours ago</li>
             <li class="mdl-menu__item" data-val="FIVE">5 hours ago</li>
             <li class="mdl-menu__item" data-val="TWELVE">12 hours ago</li>
-            <li class="mdl-menu__item" data-val="DAY">1 day ago</li>
+            <li class="mdl-menu__item" data-val="DAY" data-selected="true">1 day ago</li>
           </ul>
         </div>
         <div>
@@ -72,6 +73,7 @@
   </div>
 
   <script src="./material.min.js"></script>
+  <script src="./getmdl-select.min.js"></script>
   <script type="text/javascript">
     require('./client')
   </script>

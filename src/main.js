@@ -7,14 +7,15 @@ const {
 
 const config = require('./config')
 const kinesis = require('./kinesis')
+let time = '';
 
 let mainWindow
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
 		webPreferences: {
-			devTools: false
+			devTools: true
 		},
-		frame: false,
+		frame: true,
 		resizable: true
 	})
 	mainWindow.loadURL(`file://${__dirname}/client.html`)
@@ -52,6 +53,7 @@ ipc.on('getRecords',(e, params)=>{
 		if (err){
 			showErrorMSG('Not able to get records, verify the credentials ', err.message)
 		} else {
+			time = params.time
 			kinesis.getRecordsFromShard(data.ShardIterator, getRecordsCallback)
 		}
 	})
@@ -64,13 +66,17 @@ function getRecordsCallback(err, data) {
 		let records = ''
 		let partitionKey = ''
 		if(data.Records.length > 0) {
+			let isFirstTime = true;
 			for(let i=0; i < data.Records.length; i++) {
 				let decoded = bin2string(data.Records[i].Data);
 				partitionKey = data.Records[i].PartitionKey;
 
+				if (mustNotBeShown(partitionKey)) continue
+
 				let date = new Date(Number(partitionKey))
 				if(records.indexOf(partitionKey) < 0) {
-					if (i == 0) {
+					if (isFirstTime) {
+						isFirstTime = false
 						records += date + "\n\n"
 					} else {
 						records += "\n\n" + date + "\n\n"
@@ -81,6 +87,25 @@ function getRecordsCallback(err, data) {
 		}
 		mainWindow.webContents.send('recordsFetched', records)
 	}
+}
+
+function mustNotBeShown(partitionKey) {
+	let miliseconds = 0;
+	const currentTime = new Date().getTime()
+	if (time === "ONE") {
+		miliseconds = 3600000
+	} else if (time === "TWO") {
+		miliseconds = 7200000
+	} else if (time === "FIVE") {
+		miliseconds = 18000000
+	} else if (time === "TWELVE") {
+		miliseconds = 43200000
+	} else {
+		// a day by default
+		miliseconds = 86400000
+	}
+	return (currentTime - miliseconds) > partitionKey;
+
 }
 
 function bin2string(array){

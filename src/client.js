@@ -20,10 +20,12 @@ document.getElementById('getRecords').addEventListener('click', () => {
 	document.getElementById('records').value = ''
 	let shardId = document.getElementById('shardId').value
 	const streamName = document.getElementById('streamName').value
+	const time = document.getElementsByName('time')[0].value
 	if (shardId.length <= 0) shardId = 'shardId-000000000000'
 	const params = {
 		shardId,
-		streamName
+		streamName,
+		time
 	}
 	ipc.send('getRecords', params)
 })
