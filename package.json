@@ -4,7 +4,7 @@
   "description": "tool for reading records from  kinesis stream",
   "main": "src/main.js",
   "scripts": {
-    "build": "rimraf kms-encryption-* && electron-packager . --platform=win32 --arch=x64 --icon=logo",
+    "build": "rimraf kinesis-getrecords-* && electron-packager . --platform=win32 --arch=x64 --icon=logo",
     "start": "electron ."
   },
   "author": "",
