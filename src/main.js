@@ -67,7 +67,7 @@ function getRecordsCallback(err, data) {
 		let partitionKey = ''
 		if(data.Records.length > 0) {
 			let isFirstTime = true;
-			for(let i=0; i < data.Records.length; i++) {
+			for(let i=data.Records.length - 1; i >= 0 ; i--) {
 				let decoded = bin2string(data.Records[i].Data);
 				partitionKey = data.Records[i].PartitionKey;
 
