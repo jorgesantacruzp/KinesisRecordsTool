@@ -47,9 +47,8 @@ ipc.on('save-config',(e,data)=>{
 	mainWindow.webContents.send('configured')
 })
 
-ipc.on('getRecords',(e)=>{
-	kinesis.getKinesisRecords('shardId-000000000000', 'Dev_Alerts_IDProtection',
-	function(err, data) {
+ipc.on('getRecords',(e, params)=>{
+	kinesis.getKinesisRecords(params.shardId, params.streamName, function(err, data) {
 		if (err){
 			showErrorMSG('Not able to get records, verify the credentials ', err.message)
 		} else {

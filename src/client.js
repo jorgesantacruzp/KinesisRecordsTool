@@ -16,7 +16,14 @@ document.getElementById('config').addEventListener('click', () => {
 
 document.getElementById('getRecords').addEventListener('click', () => {
 	document.getElementById('records').value = ''
-	ipc.send('getRecords')
+	let shardId = document.getElementById('shardId').value
+	const streamName = document.getElementById('streamName').value
+	if (shardId.length <= 0) shardId = 'shardId-000000000000'
+	const params = {
+		shardId,
+		streamName
+	}
+	ipc.send('getRecords', params)
 })
 
 document.getElementById('save').addEventListener('click', () => {
