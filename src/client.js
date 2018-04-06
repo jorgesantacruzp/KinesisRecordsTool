@@ -17,7 +17,7 @@ document.getElementById('config').addEventListener('click', () => {
 
 document.getElementById('getRecords').addEventListener('click', () => {
 	document.getElementById('loading').style.display='block'
-	document.getElementById('records').value = ''
+	document.getElementById('results').innerHTML=''
 	let shardId = document.getElementById('shardId').value
 	const streamName = document.getElementById('streamName').value
 	const time = document.getElementsByName('time')[0].value
@@ -49,7 +49,10 @@ document.getElementById('exit').addEventListener('click', () => {
 
 ipc.on('recordsFetched',(e, records)=>{
 	hideLoading()
-	document.getElementById('records').value = records
+	let div = document.createElement('div')
+	div.className = 'row'
+	div.innerHTML = records
+	document.getElementById('results').appendChild(div)
 })
 
 ipc.on('disableLoading',(e)=>{

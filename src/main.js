@@ -7,15 +7,15 @@ const {
 
 const config = require('./config')
 const kinesis = require('./kinesis')
-let time = '';
+let time = ''
 
 let mainWindow
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
 		webPreferences: {
-			devTools: true
+			devTools: false
 		},
-		frame: true,
+		frame: false,
 		resizable: true
 	})
 	mainWindow.loadURL(`file://${__dirname}/client.html`)
@@ -63,26 +63,26 @@ function getRecordsCallback(err, data) {
 	if (err) {
 		showErrorMSG('Not able to get records ', err.message)
 	} else {
-		let records = ''
+		let records = '<div>'
 		let partitionKey = ''
 		if(data.Records.length > 0) {
-			let isFirstTime = true;
+			let isFirstTime = true
 			for(let i=data.Records.length - 1; i >= 0 ; i--) {
-				let decoded = bin2string(data.Records[i].Data);
-				partitionKey = data.Records[i].PartitionKey;
+				let decoded = bin2string(data.Records[i].Data)
+				partitionKey = data.Records[i].PartitionKey
 
-				if (mustNotBeShown(partitionKey)) continue
+				if (time !== "ALL" && mustNotBeShown(partitionKey)) continue
 
 				let date = new Date(Number(partitionKey))
 				if(records.indexOf(partitionKey) < 0) {
 					if (isFirstTime) {
 						isFirstTime = false
-						records += date + "\n\n"
+						records += "<h4>" + date + "</h4>"
 					} else {
-						records += "\n\n" + date + "\n\n"
+						records += "<h4>" + date + "</h4>"
 					}
 				}
-				records += decoded + "\n"
+				records += "<p>" + decoded + "</p><br>"
 			}
 		}
 		mainWindow.webContents.send('recordsFetched', records)
@@ -90,7 +90,7 @@ function getRecordsCallback(err, data) {
 }
 
 function mustNotBeShown(partitionKey) {
-	let miliseconds = 0;
+	let miliseconds = 0
 	const currentTime = new Date().getTime()
 	if (time === "ONE") {
 		miliseconds = 3600000
@@ -100,20 +100,19 @@ function mustNotBeShown(partitionKey) {
 		miliseconds = 18000000
 	} else if (time === "TWELVE") {
 		miliseconds = 43200000
-	} else {
-		// a day by default
+	} else if (time === "DAY") {
 		miliseconds = 86400000
 	}
-	return (currentTime - miliseconds) > partitionKey;
+	return (currentTime - miliseconds) > partitionKey
 
 }
 
 function bin2string(array){
-	var result = "";
+	var result = ""
 	for(var i = 0; i < array.length; ++i){
-		result+= (String.fromCharCode(array[i]));
+		result+= (String.fromCharCode(array[i]))
 	}
-	return result;
+	return result
 }
 
 function showErrorMSG(msg){
