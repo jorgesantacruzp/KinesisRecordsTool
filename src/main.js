@@ -93,4 +93,5 @@ function bin2string(array){
 
 function showErrorMSG(msg){
 	dialog.showMessageBox(mainWindow,{type:'error',buttons:[],title:'ERROR',message:msg})
+	mainWindow.webContents.send('disableLoading')
 }

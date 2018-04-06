@@ -6,6 +6,7 @@ const resultsPanel = 'resultsPanel'
 showConfig()
 
 document.addEventListener('DOMContentLoaded', ()=>{
+	hideLoading()
 	ipc.send('load-config',true)
 })
 
@@ -15,6 +16,7 @@ document.getElementById('config').addEventListener('click', () => {
 })
 
 document.getElementById('getRecords').addEventListener('click', () => {
+	document.getElementById('loading').style.display='block'
 	document.getElementById('records').value = ''
 	let shardId = document.getElementById('shardId').value
 	const streamName = document.getElementById('streamName').value
@@ -44,7 +46,12 @@ document.getElementById('exit').addEventListener('click', () => {
 })
 
 ipc.on('recordsFetched',(e, records)=>{
+	hideLoading()
 	document.getElementById('records').value = records
+})
+
+ipc.on('disableLoading',(e)=>{
+	hideLoading()
 })
 
 ipc.on('loaded',(e,params,firstLoad)=>{
@@ -83,4 +90,8 @@ function showPanel(panelId){
 
 function hidePanel(panelId){
 	document.getElementById(panelId).style.display='none'
+}
+
+function hideLoading() {
+	document.getElementById('loading').style.display='none'
 }
