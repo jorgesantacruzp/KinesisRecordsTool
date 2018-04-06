@@ -93,7 +93,9 @@ function getRecordsCallback(err, data) {
 function mustNotBeShown(partitionKey) {
 	let miliseconds = 0
 	const currentTime = new Date().getTime()
-	if (time === "ONE") {
+	if (time === "30M") {
+		miliseconds = 1800000
+	} else if (time === "ONE") {
 		miliseconds = 3600000
 	} else if (time === "TWO") {
 		miliseconds = 7200000
@@ -101,8 +103,6 @@ function mustNotBeShown(partitionKey) {
 		miliseconds = 18000000
 	} else if (time === "TWELVE") {
 		miliseconds = 43200000
-	} else if (time === "DAY") {
-		miliseconds = 86400000
 	}
 	return (currentTime - miliseconds) > partitionKey
 
