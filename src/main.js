@@ -74,7 +74,7 @@ function getRecordsCallback(err, data) {
 				if (time !== "ALL" && mustNotBeShown(partitionKey)) continue
 
 				let date = new Date(Number(partitionKey))
-				if(records.indexOf(partitionKey) < 0) {
+				if(records.indexOf(date) < 0) {
 					if (isFirstTime) {
 						isFirstTime = false
 						records += "<h4>" + date + "</h4>"
