@@ -59,3 +59,4 @@ typings/
 
 .idea/
 kinesis-getrecords-tool-win32-x64/
+config.json
