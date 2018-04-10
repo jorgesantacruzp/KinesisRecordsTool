@@ -5,12 +5,12 @@ exports.configure = (params) => {
 	kinesis = new AWS.Kinesis(params)
 }
 
-exports.getKinesisRecords = (shardId, streamName, callback)=> {
+exports.getKinesisRecords = (clientParams, callback)=> {
 	let params = {
-		ShardId: shardId,
-		ShardIteratorType: 'TRIM_HORIZON',
-		StreamName: streamName,
-		Timestamp: new Date
+		ShardId: clientParams.shardId,
+		ShardIteratorType: 'AT_TIMESTAMP',
+		StreamName: clientParams.streamName,
+		Timestamp: clientParams.timestamp
 	}
 	kinesis.getShardIterator(params, callback)
 }
@@ -18,7 +18,7 @@ exports.getKinesisRecords = (shardId, streamName, callback)=> {
 exports.getRecordsFromShard = (shardIterator, callback) => {
 	let params = {
 		ShardIterator: shardIterator,
-		Limit: 20
+		Limit: 10000
 	}
 	kinesis.getRecords(params, callback)
 }

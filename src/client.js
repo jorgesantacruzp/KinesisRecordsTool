@@ -6,11 +6,13 @@ const resultsPanel = 'resultsPanel'
 showConfig()
 
 document.addEventListener('DOMContentLoaded', ()=>{
+	document.getElementById('time').value = 1
 	hideLoading()
 	ipc.send('load-config',true)
 })
 
 document.getElementById('config').addEventListener('click', () => {
+	document.getElementById('time').value = 1
 	showConfig()
 	ipc.send('load-config')
 })
@@ -20,12 +22,14 @@ document.getElementById('getRecords').addEventListener('click', () => {
 	document.getElementById('results').innerHTML=''
 	let shardId = document.getElementById('shardId').value
 	const streamName = document.getElementById('streamName').value
-	const time = document.getElementsByName('time')[0].value
+	const time = document.getElementById('time').value
+	const unitTime = document.getElementsByName('unitTime')[0].value
+	const timestamp = getTimestamp(time, unitTime)
 	if (shardId.length <= 0) shardId = 'shardId-000000000000'
 	const params = {
 		shardId,
 		streamName,
-		time
+		timestamp
 	}
 	ipc.send('getRecords', params)
 })
@@ -99,4 +103,17 @@ function hidePanel(panelId){
 
 function hideLoading() {
 	document.getElementById('loading').style.display='none'
+}
+
+function getTimestamp(clientTime, unitTime) {
+	// 1 hour by default
+	let time = clientTime ? clientTime : 1
+	let conversionNumber = 60*60*1000
+	const currentTime = new Date().getTime()
+	if (unitTime === "minutes") {
+		conversionNumber = 60*1000
+	} else if (unitTime === "hours") {
+		conversionNumber = 60*60*1000
+	}
+	return (new Date().getTime() - (time * conversionNumber)) / 1000
 }

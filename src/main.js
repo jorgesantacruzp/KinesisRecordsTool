@@ -7,7 +7,6 @@ const {
 
 const config = require('./config')
 const kinesis = require('./kinesis')
-let time = ''
 
 let mainWindow
 app.on('ready', () => {
@@ -49,11 +48,10 @@ ipc.on('save-config',(e,data)=>{
 })
 
 ipc.on('getRecords',(e, params)=>{
-	kinesis.getKinesisRecords(params.shardId, params.streamName, function(err, data) {
+	kinesis.getKinesisRecords(params, function(err, data) {
 		if (err){
 			showErrorMSG('Not able to get records, verify the credentials ', err.message)
 		} else {
-			time = params.time
 			kinesis.getRecordsFromShard(data.ShardIterator, getRecordsCallback)
 		}
 	})
@@ -71,8 +69,6 @@ function getRecordsCallback(err, data) {
 				let decoded = bin2string(data.Records[i].Data)
 				partitionKey = data.Records[i].PartitionKey
 
-				if (time !== "ALL" && mustNotBeShown(partitionKey)) continue
-
 				let date = new Date(Number(partitionKey))
 				if(records.indexOf(date) < 0) {
 					if (isFirstTime) {
@@ -88,24 +84,6 @@ function getRecordsCallback(err, data) {
 		if(records === '') records += "<p> No records </p>"
 		mainWindow.webContents.send('recordsFetched', records)
 	}
-}
-
-function mustNotBeShown(partitionKey) {
-	let miliseconds = 0
-	const currentTime = new Date().getTime()
-	if (time === "30M") {
-		miliseconds = 1800000
-	} else if (time === "ONE") {
-		miliseconds = 3600000
-	} else if (time === "TWO") {
-		miliseconds = 7200000
-	} else if (time === "FIVE") {
-		miliseconds = 18000000
-	} else if (time === "TWELVE") {
-		miliseconds = 43200000
-	}
-	return (currentTime - miliseconds) > partitionKey
-
 }
 
 function bin2string(array){
