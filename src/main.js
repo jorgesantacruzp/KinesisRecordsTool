@@ -81,7 +81,7 @@ function getRecordsCallback(err, data) {
 				records += "<p>" + decoded + "</p><br>"
 			}
 		}
-		if(records === '') records += "<p> No records </p>"
+		if(records === '') records += "<p id=\"noRecords\"> No records </p>"
 		mainWindow.webContents.send('recordsFetched', records)
 	}
 }

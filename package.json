@@ -13,12 +13,12 @@
   },
   "author": "",
   "dependencies": {
-    "aws-sdk": "^2.49.0",
-    "electron": "^1.6.6"
+    "aws-sdk": "^2.49.0"
   },
   "devDependencies": {
     "electron-packager": "^8.7.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "electron": "^1.6.6"
   },
   "license": "ISC"
 }

@@ -6,13 +6,13 @@ const resultsPanel = 'resultsPanel'
 showConfig()
 
 document.addEventListener('DOMContentLoaded', ()=>{
+	document.getElementById('unitTimeDiv').style.display='none'
 	document.getElementById('time').value = 1
 	hideLoading()
 	ipc.send('load-config',true)
 })
 
 document.getElementById('config').addEventListener('click', () => {
-	document.getElementById('time').value = 1
 	showConfig()
 	ipc.send('load-config')
 })
@@ -57,6 +57,11 @@ ipc.on('recordsFetched',(e, records)=>{
 	div.className = 'row'
 	div.innerHTML = records
 	document.getElementById('results').appendChild(div)
+	if(records.indexOf("No records") > 0) {
+		document.getElementById('noRecords').addEventListener('click', () => {
+			document.getElementById('unitTimeDiv').style.display='block'
+		})
+	}
 })
 
 ipc.on('disableLoading',(e)=>{
@@ -108,6 +113,10 @@ function hideLoading() {
 function getTimestamp(clientTime, unitTime) {
 	// 1 hour by default
 	let time = clientTime ? clientTime : 1
+	if (time > 30) {
+		time = 30
+		document.getElementById('time').value=30
+	}
 	let conversionNumber = 60*60*1000
 	const currentTime = new Date().getTime()
 	if (unitTime === "minutes") {
@@ -115,5 +124,5 @@ function getTimestamp(clientTime, unitTime) {
 	} else if (unitTime === "hours") {
 		conversionNumber = 60*60*1000
 	}
-	return (new Date().getTime() - (time * conversionNumber)) / 1000
+	return (currentTime - (time * conversionNumber)) / 1000
 }

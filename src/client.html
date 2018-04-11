@@ -51,16 +51,16 @@
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight100pc marginTop20">
           <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="time" />
-          <label class="mdl-textfield__label" for="time">Time</label>
+          <label class="mdl-textfield__label" for="time">Time (minutes)</label>
           <span class="mdl-textfield__error">Input is not a number</span>
         </div>
-        <div class="mdl-textfield mdl-js-textfield getmdl-select marginRight100pc marginTop20">
+        <div id="unitTimeDiv" class="mdl-textfield mdl-js-textfield getmdl-select marginRight100pc marginTop20">
           <input type="text" value="" class="mdl-textfield__input" id="unitTime" readonly>
           <input type="hidden" value="" name="unitTime">
           <label for="unitTime" class="mdl-textfield__label">Unit Time</label>
           <ul for="unitTime" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" data-val="minutes">Minutes</li>
-            <li class="mdl-menu__item" data-val="hours" data-selected="true">Hours</li>
+            <li class="mdl-menu__item" data-val="minutes" data-selected="true">Minutes</li>
+            <li class="mdl-menu__item" data-val="hours">Hours</li>
           </ul>
         </div>
         <div>
