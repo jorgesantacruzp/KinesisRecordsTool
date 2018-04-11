@@ -33,17 +33,21 @@ app.on('window-all-closed', () => {
 
 ipc.on('load-config',(e,firstLoad)=>{
 	config.read(configParams=>{
+		const streamName = configParams.streamName
+		delete configParams.streamName
 		if(configParams) kinesis.configure(configParams)
 		else if (!firstLoad) showErrorMSG('Configuration parameters couldn\'t be loaded')
+		configParams.streamName = streamName
 		mainWindow.webContents.send('loaded', configParams, firstLoad)
 	})
 })
 
 ipc.on('save-config',(e,data)=>{
-	kinesis.configure(data)
 	config.save(data,(err)=>{
 		if(err) showErrorMSG('There was an error when saving configuration')
 	})
+	delete data.streamName
+	kinesis.configure(data)
 	mainWindow.webContents.send('configured')
 })
 

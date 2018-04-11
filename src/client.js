@@ -38,10 +38,12 @@ document.getElementById('save').addEventListener('click', () => {
 	const accessKeyId = document.getElementById('accessKeyId').value
 	const secretAccessKey = document.getElementById('secretAccessKey').value
 	const region = document.getElementById('region').value
+	const streamName = document.getElementById('streamName').value
 	const params = {
 		accessKeyId,
 		secretAccessKey,
-		region
+		region,
+		streamName
 	}
 	ipc.send('save-config',params)
 })
@@ -72,10 +74,11 @@ ipc.on('loaded',(e,params,firstLoad)=>{
 	if(firstLoad && params){
 		showResults()
 	}else if(params){
-		const {accessKeyId,secretAccessKey,region}= params
+		const {accessKeyId,secretAccessKey,region,streamName}= params
 		document.getElementById('accessKeyId').value=accessKeyId
 		document.getElementById('secretAccessKey').value=secretAccessKey
 		document.getElementById('region').value=region
+		document.getElementById('streamName').value=streamName
 	}
 })
 
