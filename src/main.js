@@ -33,11 +33,16 @@ app.on('window-all-closed', () => {
 
 ipc.on('load-config',(e,firstLoad)=>{
 	config.read(configParams=>{
-		const streamName = configParams.streamName
-		delete configParams.streamName
+		let streamName = ''
+		if(configParams) {
+			streamName = configParams.streamName
+			delete configParams.streamName
+		}
 		if(configParams) kinesis.configure(configParams)
 		else if (!firstLoad) showErrorMSG('Configuration parameters couldn\'t be loaded')
-		configParams.streamName = streamName
+		if(configParams) {
+			configParams.streamName = streamName
+		}
 		mainWindow.webContents.send('loaded', configParams, firstLoad)
 	})
 })
