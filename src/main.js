@@ -66,6 +66,18 @@ ipc.on('getRecords',(e, params)=>{
 	})
 })
 
+ipc.on('push-record', (e, clientParams) => {
+	kinesis.pushRecord(clientParams, pushRecordCallback)
+})
+
+function pushRecordCallback(err, data) {
+	if (err) {
+		showErrorMSG('Not able to push record ', err.message)
+	} else {
+		mainWindow.webContents.send('recordPushedCorrectly')
+	}
+}
+
 function getRecordsCallback(err, data) {
 	if (err) {
 		showErrorMSG('Not able to get records ', err.message)

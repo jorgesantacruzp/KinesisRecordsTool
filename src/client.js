@@ -53,6 +53,20 @@ document.getElementById('exit').addEventListener('click', () => {
 	window.close()
 })
 
+document.getElementById('pushRecord').addEventListener('click', () => {
+	const recordToPush = document.getElementById('recordToPush').value
+	const streamName = document.getElementById('streamName').value
+	const params = {
+		recordToPush,
+		streamName
+	}
+	ipc.send('push-record',params)
+})
+
+ipc.on('recordPushedCorrectly', (e) => {
+	alert("Record was pushed correctly")
+})
+
 ipc.on('recordsFetched',(e, records)=>{
 	hideLoading()
 	let div = document.createElement('div')

@@ -22,3 +22,12 @@ exports.getRecordsFromShard = (shardIterator, callback) => {
 	}
 	kinesis.getRecords(params, callback)
 }
+
+exports.pushRecord = (clientParams, callback) => {
+	let params = {
+		Data: clientParams.recordToPush,
+		PartitionKey: new Date().getTime().toString(),
+		StreamName: clientParams.streamName
+	};
+	kinesis.putRecord(params, callback);
+}

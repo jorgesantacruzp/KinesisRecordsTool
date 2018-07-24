@@ -10,7 +10,7 @@
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header csColor" style="-webkit-app-region: drag">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">CS Kinesis Consumer</span>
+        <span class="mdl-layout-title">CS Kinesis Client</span>
       </div>
     </header>
     <main class="mdl-layout__content">
@@ -43,6 +43,15 @@
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50 marginTop20">
           <button id="config" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect mdl-button&#45;&#45;accent marginRight50 csButtonColor">Configure</button>
         </div>
+        <h4 class="marginTopMin20">Producer</h4>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50 marginTop20">
+          <input type="text" id="recordToPush"  class="mdl-textfield__input">
+          <label for="recordToPush" class="mdl-textfield__label">Type here what you want to push</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50 marginTop20">
+          <button id="pushRecord" class="buttonStyle mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect">Push</button>
+        </div>
+        <h4>Consumer</h4>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label marginRight50 marginTop20">
           <button id="getRecords" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect mdl-button&#45;&#45;accent marginRight50 csButtonColor">Get records</button>
         </div>
