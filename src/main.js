@@ -59,7 +59,7 @@ ipc.on('save-config',(e,data)=>{
 ipc.on('getRecords',(e, params)=>{
 	kinesis.getKinesisRecords(params, function(err, data) {
 		if (err){
-			showErrorMSG('Not able to get records, verify the credentials ', err.message)
+			showErrorMSG('Not able to get records, verify the credentials ' + err.message)
 		} else {
 			kinesis.getRecordsFromShard(data.ShardIterator, getRecordsCallback)
 		}
@@ -72,7 +72,7 @@ ipc.on('push-record', (e, clientParams) => {
 
 function pushRecordCallback(err, data) {
 	if (err) {
-		showErrorMSG('Not able to push record ', err.message)
+		showErrorMSG('Not able to push record ' + err.message)
 	} else {
 		mainWindow.webContents.send('recordPushedCorrectly')
 	}
@@ -80,7 +80,7 @@ function pushRecordCallback(err, data) {
 
 function getRecordsCallback(err, data) {
 	if (err) {
-		showErrorMSG('Not able to get records ', err.message)
+		showErrorMSG('Not able to get records ' + err.message)
 	} else {
 		let records = ''
 		let partitionKey = ''
