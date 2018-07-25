@@ -57,17 +57,23 @@ ipc.on('save-config',(e,data)=>{
 })
 
 ipc.on('getRecords',(e, params)=>{
-	kinesis.getKinesisRecords(params, function(err, data) {
-		if (err){
-			showErrorMSG('Not able to get records, verify the credentials ' + err.message)
-		} else {
-			kinesis.getRecordsFromShard(data.ShardIterator, getRecordsCallback)
-		}
+	config.read(configParams=>{
+		params.streamName = configParams.streamName
+		kinesis.getKinesisRecords(params, function(err, data) {
+			if (err){
+				showErrorMSG('Not able to get records, verify the credentials ' + err.message)
+			} else {
+				kinesis.getRecordsFromShard(data.ShardIterator, getRecordsCallback)
+			}
+		})
 	})
 })
 
-ipc.on('push-record', (e, clientParams) => {
-	kinesis.pushRecord(clientParams, pushRecordCallback)
+ipc.on('push-record', (e, params) => {
+	config.read(configParams=>{
+		params.streamName = configParams.streamName
+		kinesis.pushRecord(params, pushRecordCallback)
+	})
 })
 
 function pushRecordCallback(err, data) {
