@@ -61,3 +61,4 @@ typings/
 kinesis-getrecords-tool-win32-x64/
 config.json
 release-builds/
+dist/
