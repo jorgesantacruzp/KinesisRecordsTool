@@ -5,7 +5,7 @@ exports.configure = (params) => {
 	kinesis = new AWS.Kinesis(params)
 }
 
-exports.getKinesisRecords = (clientParams, callback)=> {
+exports.getKinesisRecords = (clientParams, callback) => {
 	let params = {
 		ShardId: clientParams.shardId,
 		ShardIteratorType: 'AT_TIMESTAMP',
